@@ -1,1 +1,0 @@
-https://slides.com/schoolofdevops/kubernetes#/7
