@@ -1,0 +1,153 @@
+# sping t2.medium machine for master
+host mapping
+/etc/hosts
+172.31.19.161	puppetmaster.example.com puppet
+hostnamectl set-hostname puppetmaster.example.com
+sudo rpm -Uvh https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm
+yum install puppetserver.noarch
+service puppetserver start
+service puppetserver status
+#for agent
+# add icmp for both master and agent both
+/etc/hosts
+172.31.25.186	puppetagent01.example.com agent01
+hostnamectl set-hostname puppetagent01.example.com
+# Make entry of persistance ip into /etc/hosts file of both machines
+sudo rpm -Uvh https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm
+yum install puppet-agent
+ls -lrt /etc/puppetlabs/puppet/puppet.conf(check config file)
+# cat /etc/puppetlabs/puppet/puppet.conf
+# we need to set parameters under main section of agent machine in orde to achieve communication to server
+# [main]
+# certname = puppetagent01.example.com
+# server = puppetmaster.example.com
+puppet agent -tv (dont forget to open tcp  port range)
+# now its time to start puppet agent service but before that we will examine how many agents are there on server
+# run puppet cert list if this gives command not found the run this command ln -s /opt/puppetlabs/bin/puppet /usr/bin/puppet will create softlink
+# ideally it should not give and list out
+puppet cert list --all(in master)
+# we can find only one entry for server that means there is no agent attached to this server
+# lets go and start puppet agent 
+systemctl status puppet
+systemctl start puppet
+# go back to the master and check for cert list again
+puppet cert list(in master a request is waiting from agent)
+puppet cert list --all. it will show all the cert signed and unsigned both
+# run below command in master to sign the peding request
+puppet cert sign puppetagent01.example.com
+# below command on agent this is know as certificate management in puppet and check communication between master and agent
+puppet agent -tv(in agent)
+nano /etc/puppetlabs/puppet/autosign.conf(add *.example.com)
+# create one dir with below cmd
+mkdir /var/tmp/demo
+# create one file demouser.pp and add below lines
+
+user { "chandanchanchal":
+  ensure => "present"
+}
+# for checking syntex error run below command
+puppet parser validate demouser.pp(validate program)
+
+# lets do a dry run for this program if it passes validation
+puppet apply demouser.pp --noop
+
+# lets go for actual run
+puppet apply demouser.pp 
+# check with native os cmd for user check
+id chandanchanchal
+# lets create another puppet file cc with below code
+
+
+file { "/var/tmp/testfile":
+  ensure => "present",
+  owner  => "chandanchanchal",
+  group  => "chandanchanchal",
+  mode   => "0777",
+}
+
+# Lets change the file to have some content
+
+
+file { "/var/tmp/testfile":
+  ensure => "present",
+  owner  => "chandanchanchal",
+  group  => "chandanchanchal",
+  mode   => "0777",
+  content => "Hello and welcome to the puppet learning\n",
+}
+
+# lets play with another puppet resource type that is package
+
+package { "telnet":
+  ensure => "installed",
+}
+
+# just to check our parameter is correct
+puppet describe package |more
+
+# verify the package is installed 
+rpm -qa | grep -i telnet
+rpm -qi telnet-0.17-64.amzn2.0.1.x86_64
+
+# lets go and play with multiresource
+
+file { "/var/tmp/testdir":
+  ensure => "directory",
+}
+
+file { "/var/tmp/testdir/testfile":
+ ensure => "present"
+}
+
+
+# lets go with ntp package
+
+# Installing NTP package
+package { "ntp":
+  ensure => "present",
+}
+# configuring NTP configuration file
+file {"/etc/htp.conf":
+  ensure => "present",
+  content => "server 0.centos.pool.ntp.org iburst\n",
+}
+
+# running NTP service
+service { "ntpd":
+  ensure => "running",
+}
+
+# this example describel ntp with classes
+
+ class ntpdemo {
+
+  # Installing NTP package
+  package { "ntp":
+    ensure => "present",
+  }
+  # configuring NTP configuration file
+  file {"/etc/htp.conf":
+    ensure => "present",
+    content => "server 0.centos.pool.ntp.org iburst\n",
+  }
+
+  # running NTP service
+  service { "ntpd":
+    ensure => "running",
+  }
+ }
+ 
+ # declaration of the class
+ include ntpdemo
+ 
+# in opensource puppet we have to create site.pp file under below path which is entry point of puppet program
+cd /etc/puppetlabs/code/environments/production/manifests
+# at above path we have to create site.pp
+
+# before writing anthing to site.pp run below command to agent jsut to ensure agent is connect to master
+puppet agent -tv --noop
+puppet agent -tv
+
+# check for ntp application at agent if it is there remove it
+rpm -qa | grep -i ntp
+yum remove ntp
