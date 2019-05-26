@@ -1,0 +1,25 @@
+Puppet agent sends info to puppet master using factor(system inventory tool)
+Factor returns key value pair which is know as facts.
+Facts provides system information like IP,FQDN,kernal version etc, these informaiton
+can be used in inbuild variables in puppet 
+Puppet master uses these informaiton and compile a catalog(how a system should look like)against
+defined state in puppet menifest. This is drift between current and reuired state and sends it back
+ to node where agent is running
+After receving catlog puppet agent apply changes imediately drift or new one.
+Puppet agent creates a report(can be sent to third party with API) and sends it back to master
+
+# Puppet resources(File,user,package router)
+core-pre build in maintain by puppet team 49
+Defined Written in puppet DSL (.pp file)
+custome written in rb
+
+these and building block and inbuilt functions of puppet
+# puppet classes
+a group of resources and functions can be grouped thgeather called as classes like every thing required to setup a web server
+# manifest 
+is a directory containing puppet DSL file with .pp exetension(puppet program)
+# modules 
+modules are collection of file and directory such as manifest and classes they are the resualble and shareable
+ex mysql module jenkins
+
+
