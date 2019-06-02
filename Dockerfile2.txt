@@ -1,0 +1,13 @@
+# Specify base image
+FROM node:alpine
+
+
+# Download and install a dependency
+COPY ./ ./
+RUN npm install
+
+
+# Default command
+CMD ["npm","start"]
+
+docker run -p 80:80 myimage

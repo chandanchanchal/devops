@@ -1,0 +1,51 @@
+#Use an existing docker image as base
+FROM alpine
+
+
+# Download and install a dependency
+RUN apk add --update redis
+
+
+
+
+# Tell the image what to do when it starts
+# as a container
+CMD ["redis-server"]
+
+# line no 16 is not required its a command to create dockerimage
+docker build -t "myimage:latest" .
+
+
+touch Dockerfile
+
+
+
+
+
+
+
+
+
+
+
+
+
+docker tag  82e76bc3dfaa  chandanchanchal/myredis
+
+docker run -it debian:jessie
+
+apt-get update && apt-get install -y git
+
+docker commit 111561b55427(this should be container id) chandanchanchal/chandan:1.00
+
+docker login --username=chandanchanchal
+
+
+
+
+
+
+
+
+
+

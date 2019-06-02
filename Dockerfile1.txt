@@ -1,0 +1,10 @@
+# Specify base image
+FROM node:alpine
+
+
+# Download and install a dependency
+RUN npm install
+
+
+# Default command
+CMD ["npm","start"]
