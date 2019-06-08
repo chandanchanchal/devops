@@ -13,10 +13,10 @@ RUN apk add --update redis
 CMD ["redis-server"]
 
 # line no 16 is not required its a command to create dockerimage
-docker build -t "myimage:latest" .
+#docker build -t "myimage:latest" .
 
 
-touch Dockerfile
+# touch Dockerfile
 
 
 
