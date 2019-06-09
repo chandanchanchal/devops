@@ -1,0 +1,81 @@
+yum install docker
+service docker start
+service docker status
+chkconfig docker on
+
+docker run hello-world
+docker run busybox:1.24 echo "hello world"
+docker run hello-world  echo "hello world"
+
+docker images
+docker run busybox:1.24 echo "hello world"
+docker run busybox:1.24 ping google.com
+docker create hello-world
+docker start -a container id  .... -a prints out container output to console
+docker start -a container id will run default msg
+docker system prune will remove all container
+docker ps 
+docker ps -all
+docker images
+docker build chandanchanchal/redis:latest .
+docker run busybox:1.24 ls /
+docker run -it busybox:1.24  .....-i and -t is for attachment for stdin and std out
+touch a.txt
+ls
+exit
+docker history busybox:1.24     ... layer info
+docker run -it debian:jessie
+apt-get update && apt-get install -y git
+git
+exit
+docker ps -a
+docker commit 111561b55427(this should be container id) chandanchanchal/chandan:1.00
+docker images
+docker run -it chandanchanchal/chandan:1.00
+#docker push
+docker images
+docker tag  82e76bc3dfaa(this is image id for newer image) chandanchanchal/mytest:1.02
+docker images
+docker login --username=chandanchanchal
+password
+docker push chandanchanchal/test:1.01
+
+***************************************NETWORKING****************************************
+docker network ls
+docker run -d --net none busybox sleep 1000
+docker exec -it 7837e8c4afa9ad0be7573299af80490d111097bad8b90855c869adfa3478fd54 /bin/ash
+
+
+docker netwrok inspect bridge
+docker network create --driver bridge my_bridge-network
+docker run -d --name container_1 busybox sleep 1000
+docker network connnect bridge container_3
+docker network disconnect bridge container_3
+
+docker exec -it container_2 ifconfig
+docker run -d --name container_4 --net host busybox seeep 1000
+
+docker exec -it container_1 ping 172.17.0.3
+
+swarm######################
+docker info
+docker swarm init
+docker node ls
+docker service COMMAND
+docker service create alpine ping 8.8.8.8
+docker service ls
+docker service ps sad_ptolemy
+docker container ls
+docker service update fdfeidiidie(service id) --replicas 3
+docker service ls
+docker ps service_name
+docker service  ps peaceful_wilson
+docker update --help
+docker service update --help
+docker container ls
+docker container rm -f frosty_newton
+docker service ls
+
+
+
+
