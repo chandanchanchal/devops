@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>036 Text Direction Install Jenkins Master Node in the Cloud</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <h4>Install Jenkins on the Master Node</h4>
+
+<pre class="prettyprint linenums">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
+
+echo deb http://pkg.jenkins-ci.org/debian binary/ &gt; /etc/apt/sources.list.d/jenkins.list
+
+apt-get update
+
+apt-get install jenkins</pre>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

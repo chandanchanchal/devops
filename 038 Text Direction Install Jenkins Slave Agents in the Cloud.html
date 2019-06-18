@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>038 Text Direction Install Jenkins Slave Agents in the Cloud</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <h4>Install Jenkins Agent on the Slave Node</h4>
+
+<p><strong>running on master node:</strong>
+</p>
+
+
+
+<pre class="prettyprint linenums">sudo -iu jenkins
+ssh-keygen -t rsa
+
+ssh root@&lt;slave_ip&gt; mkdir -p .ssh
+
+cat .ssh/id_rsa.pub | ssh root@&lt;slave_ip&gt; 'cat &gt;&gt; .ssh/authorized_keys'
+
+</pre>
+
+
+
+
+
+<p><strong>running on slave node:</strong>
+</p>
+
+
+
+<pre class="prettyprint linenums">mkdir ~/bin
+
+cd bin
+
+wget http://&lt;master_ip&gt;:8080/jnlpJars/slave.jar
+
+sudo apt-get install default-jre </pre>
+
+
+
+
+
+
+
+<p><strong>start slave agent: </strong></p>
+
+
+
+<p><code>ssh root@&lt;slave_ip&gt; java -jar /root/bin/slave.jar</code> </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
