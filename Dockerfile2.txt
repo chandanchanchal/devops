@@ -10,5 +10,5 @@ RUN npm install
 # Default command
 CMD ["npm","start"]
 
-below cmd is for running containers
+#below cmd is for running containers
 #docker run -p 80:80 myimage
