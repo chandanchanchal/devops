@@ -36,6 +36,7 @@ puppet cert list --all. it will show all the cert signed and unsigned both
 # run below command in master to sign the peding request
 puppet cert sign puppetagent01.example.com
 # below command on agent this is know as certificate management in puppet and check communication between master and agent
+/opt/puppetlabs/bin/puppet agent --test
 puppet agent -tv(in agent)
 nano /etc/puppetlabs/puppet/autosign.conf(add *.example.com)
 # create one dir with below cmd
