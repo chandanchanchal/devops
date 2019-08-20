@@ -1,0 +1,55 @@
+sudo su
+yum install docker -y
+service docker start
+service docker status
+docker info
+https://get.docker.com/
+
+docker swarm init ### this will give join token which we need to run on slave
+docker swarm init for digital ocean plz add --advertise-addr 139.59.78.105(public ip of master)
+docker swarm join --token SWMTKN-1-67naewf2omhv8yrvum1xt5v4nczbfy9bbz2zb82nsof7ld6w11-6w4jfadk9xyuggtvn8i8hbaxy 139.59.78.105:2377
+
+docker swarm join-token manager
+docker node promote <node name>
+docker node demote  <node name>
+
+docker node update --role manager node2
+docker swarm join-token manager
+docker swarm join --token SWMTKN-1-67naewf2omhv8yrvum1xt5v4nczbfy9bbz2zb82nsof7ld6w11-8sa7uq38ij0z7ssrk6fd9xc1d 139.59.78.105:2377
+docker service create --replicas 3 alpine ping 8.8.8.8
+docker service ls
+docker node ps node 1s
+docker service ps sharp_visvesvaraya(servicename)
+#################Netwrok-Overlay#######################
+docker network  create --driver overlay mydrupal
+docker network ls
+docker service create --name psql --network mydrupal -e POSTGRES_PASSWORD=mypass postgres
+docker service ls
+docker service ps psql
+docker service create --name drupal --network mydrupal -p 80:80 drupal
+docker service ps drupal
+any IP address 139.59.78.105
+hostname in advance tab should be psql
+how to know which ip site is running
+
+mypass
+mypass
+
+
+
+
+
+
+docker swarm init
+docker swarm init --advertise-addr public ip
+take docker swarm join cmd and run on another node
+
+docker node ls... now we can see two
+docker node ls on node two it will notwork as its worker
+docker node update --role manager node2 at manager machine
+docker node ls... we can see there are two nodes
+docker service create --replicas 3 alpine 8.8.8.8
+docker service ls
+docker node ps
+docker node ps node2
+docker servicepssleepy_brown
