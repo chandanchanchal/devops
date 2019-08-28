@@ -41,4 +41,6 @@ Update target servers information on /etc/ansible/hosts file (Master)
 echo "<target server IP>" > /etc/ansible/hosts
 Run ansible command as ansadmin user it should be successful (Master)
 
+target ansible_host=139.59.88.4 ansible_ssh_pass=Passw0rd
+
 ansible all -m ping
