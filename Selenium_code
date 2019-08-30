@@ -24,3 +24,7 @@ Assert.assertEquals(Actualtitle, Expectedtitle);
 System.out.println("After Assertion " + Expectedtitle + Actualtitle + " Title matched ");
  }
 }
+
+
+
+Java –cp bin;lib/* org.testng.TestNG testng.xml
