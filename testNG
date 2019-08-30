@@ -5,3 +5,17 @@
 </clesses>
 </test>
 </suite>
+
+
+Java –cp bin;lib/* org.testng.TestNG testng.xml
+Create a batch file by following the below steps:
+
+1) Open the notepad and type-: Java –cp bin;lib/* org.testng.TestNG testng.xml
+
+By doing this, Java –cp will compile and execute a .class file which is located at bin directory and all our 
+executable jar file is located at lib directory and we are using a TestNG framework so specify org.testng.TestNG.
+Also, specify the name of xml file which will trigger the expected TestNG script.
+
+2) Save the file with .bat extension and check the type of file. It should be “windows batch file”.
+To cross-check whether the batch file is created properly, double-click the batch file and it will execute the code.
+Refer the below code of batch file:
