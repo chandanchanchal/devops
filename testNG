@@ -1,0 +1,7 @@
+<suite name="sample suite">
+<test name="selenium with jenkins">
+<classes>
+ <class name="sgsession.jenking_demo">
+</clesses>
+</test>
+</suite>
