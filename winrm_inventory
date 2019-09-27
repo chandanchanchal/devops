@@ -12,6 +12,7 @@ ansible_winrm_server_cert_validation=ignore
 
 C:\Windows\system32>winrm set winrm/config/service @{AllowUnencrypted="true"}
 C:\Windows\system32>winrm set winrm/config/service/auth @{Basic="true"}
+pip install --ignore-installed pywinrm
 
 
 
