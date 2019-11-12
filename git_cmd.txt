@@ -1,0 +1,44 @@
+git init test
+git status
+
+
+
+
+path varibale for notepad++ must be set
+notepad++ .bash_profile
+
+..............for alias npp++...................
+alias npp='notepad++.exe -multiInst -nosession'
+cat ~/.gitconfig
+git config --global core.editor "notepad++.exe -multiInst -nosession"
+git config --global --list
+git config --global -e
+https://hipsum.co/
+http://initializr.com
+unzip ~/Downloads/initializr-verekia-4.0.zip
+then remane this folder to web-project and say git init
+git add .--------just toadd all file
+git commit -m "This is my first commmit , inline"
+rm -rf .git
+git pull origin master
+git push origin master
+
+git commit -am "commit inline" ... this is for tracked file
+git ls-files............. will list out all the files which git trackes
+git branch -a....... this will show current branch
+git branch mynewbranch.............will create a new branch
+git checkout mynewbranch... will change branch to mynewbranch
+git branch -a astric will tell new branch
+git log --oneline --decorate
+git branch -m mynewbranch newbranch.. for renaming the older branch
+git branch -d newbranch
+git checkout -b title-change here -b will create a branch before check it out
+git checkout master... will get back to master
+git diff master title-change
+git merge title-change
+git log --oneline --graph --decorate
+git branch -d title-change
+git reset HEAD filename...... for getting a file back from stagging to workspace
+
+
+
