@@ -1,8 +1,7 @@
 git init test
 git status
-
-
-
+git config --global user.email "chandanabbupur@gmail.com"
+git config --global user.name "chandan chanchal"
 
 path varibale for notepad++ must be set
 notepad++ .bash_profile
