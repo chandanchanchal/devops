@@ -37,7 +37,8 @@ git diff master title-change
 git merge title-change
 git log --oneline --graph --decorate
 git branch -d title-change
-git reset HEAD filename...... for getting a file back from stagging to workspace
+#git reset HEAD filename...... for getting a file back from stagging to workspace
+git reset filename...... for getting a file back from stagging to workspace
 
 
 
