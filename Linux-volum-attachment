@@ -1,0 +1,7 @@
+lsblk
+file -s /dev/xvdf
+sudo mkfs -t ext4 /dev/xvdf
+sudo mkdir /newvolume
+mount /dev/xvdf /newvolume/
+cd /newvolume
+df -h
