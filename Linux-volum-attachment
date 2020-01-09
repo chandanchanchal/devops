@@ -11,5 +11,13 @@ aws s3 presign s3://mybucket/myobject  --expires-in 300
 aws s3api create-bucket --bucket com.test.cg.chandan --region us-east-1
 
 
+#!/bin/bash
+sudo yum install httpd -y
+sudo yum update -y
+sudo service httpd start
+sudo chkconfig httpd on
+sudo echo "<html><body bgcolor="red"><h1> Welocme </h1></body></html>" > /var/www/html/index.html
+
+
 
 
