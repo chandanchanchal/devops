@@ -5,3 +5,11 @@ sudo mkdir /newvolume
 mount /dev/xvdf /newvolume/
 cd /newvolume
 df -h
+# this is for AWS CLI
+aws s3 presign s3://mybucket/myobject
+aws s3 presign s3://mybucket/myobject  --expires-in 300
+aws s3api create-bucket --bucket com.test.cg.chandan --region us-east-1
+
+
+
+
