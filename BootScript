@@ -11,7 +11,7 @@ sudo yum install httpd -y
 sudo yum update -y
 sudo service httpd start
 sudo chkconfig httpd on
-sudo mkdir test1
+sudo mkdir /var/www/html/test1
 echo "<html><body bgcolor="red"><h1> Hello World from test1!</h1></body><html>" > /var/www/html/test1/index.html
 
 
@@ -20,5 +20,5 @@ sudo yum install httpd -y
 sudo yum update -y
 sudo service httpd start
 sudo chkconfig httpd on
-sudo mkdir test2
+sudo mkdir /var/www/html/test2
 echo "<html><body bgcolor="red"><h1> Hello World from test2!</h1></body><html>" > /var/www/html/test2/index.html
