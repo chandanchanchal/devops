@@ -1,9 +1,9 @@
 #!/bin/bash
-yum install httpd -y
-yum update -y
-service httpd start
-chkconfig httpd on
-echo "<html><body bgcolor="red"><h1> Hello World!</h1></body><html>" > /var/www/html/index.html
+sudo yum update -y
+sudo yum install httpd -y
+sudo service httpd start
+sudo chkconfig httpd on
+sudo echo "<html><body bgcolor="red"><h1> Hello World!</h1></body><html>" > /var/www/html/index.html
 
 
 #!/bin/bash
