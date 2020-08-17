@@ -1,0 +1,45 @@
+node{
+    
+    stage('GIT checkout'){
+        git 'https://github.com/chandanchanchal/maven-project.git'
+        
+    }
+    stage('maven build'){
+       def mvnHOME=tool name: 'MAVEN_LOCAL', type: 'maven'
+       def mvnCMD = "${mvnHOME}/bin/mvn"       
+       sh "${mvnCMD} clean package"
+        
+    }
+    stage('Build Docker Image'){
+        
+      sh 'docker build -t chandanchanchal/brillio-app:1.0 .'
+        
+    }
+    
+    stage('Push Docker Image'){
+        
+        withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPWD')]) {
+          sh "docker login -u chandanchanchal -p ${dockerHubPWD}"
+    }
+        sh 'docker push chandanchanchal/brillio-app:1.0'
+    }
+    
+    stage('Run Container on Dev Server'){
+      def dockerRun = 'docker run -p 8080:8080 -d --name app1 chandanchanchal/brillio-app:1.0'
+      def dockerRm = 'docker rm -f app1'
+      def dockerRmImage= 'docker rmi -f chandanchanchal/brillio-app:1.0'
+      sshagent(['729b34df-632d-4965-834b-f5f0954f6c80']) {
+       try{
+           sh "ssh -o StrictHostKeyChecking=no ec2-user@100.26.175.79 ${dockerRm}"
+           sh "ssh -o StrictHostKeyChecking=no ec2-user@100.26.175.79 ${dockerRmImage}"
+          }catch(err){echo: 'caught error: $err'}
+         sh "ssh -o StrictHostKeyChecking=no ec2-user@100.26.175.79 ${dockerRun}"
+}
+      
+    }
+    
+    
+    
+    
+    
+}
