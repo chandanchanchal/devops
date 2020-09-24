@@ -8,4 +8,6 @@ COPY index.html /var/www/html/
 
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
+# Below is the command to create container out of this image
+# docker run -p 80:80 then imagerepo name along with tag-- make sure your host machine has port 80 open for inbound traffic.
 
