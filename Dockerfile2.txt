@@ -3,6 +3,7 @@ FROM node:alpine
 
 
 # Download and install a dependency
+# please make sure you should have index.js and package.json file in local directory.. both the files you can find in devops git repo.
 COPY ./ ./
 RUN npm install
 
