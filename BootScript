@@ -3,7 +3,7 @@ sudo yum update -y
 sudo yum install httpd -y
 sudo service httpd start
 sudo chkconfig httpd on
-sudo echo "<html><body bgcolor="red"><h1> Hello World!</h1></body><html>" > /var/www/html/index.html
+sudo echo "<html><body bgcolor="red"><h1> Hello World</h1></body><html>" > /var/www/html/index.html
 
 
 #!/bin/bash
@@ -12,7 +12,7 @@ sudo yum update -y
 sudo service httpd start
 sudo chkconfig httpd on
 sudo mkdir /var/www/html/test1
-echo "<html><body bgcolor="red"><h1> Hello World from test1!</h1></body><html>" > /var/www/html/test1/index.html
+echo "<html><body bgcolor="red"><h1> Hello World from test1</h1></body><html>" > /var/www/html/test1/index.html
 
 
 #!/bin/bash
@@ -21,4 +21,4 @@ sudo yum update -y
 sudo service httpd start
 sudo chkconfig httpd on
 sudo mkdir /var/www/html/test2
-echo "<html><body bgcolor="red"><h1> Hello World from test2!</h1></body><html>" > /var/www/html/test2/index.html
+echo "<html><body bgcolor="red"><h1> Hello World from test2</h1></body><html>" > /var/www/html/test2/index.html
