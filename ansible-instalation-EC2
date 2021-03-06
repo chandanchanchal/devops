@@ -1,1 +1,47 @@
 
+#Ansible Installation
+#Ansible is an open source automation platform. It is very, very simple to setup and yet powerful. 
+#Ansible can help you with configuration management, application deployment, task automation.
+############## The lines which is starting with # meant to be comment, just to inherit more readablity ###############
+
+
+#Prerequisites
+#An AWSEC2/Azure VM instance with centos-7+
+#Installation steps:
+#Add a EPEL (Extra Packages for Enterprise Linux)third party repository to get packages for Ansible
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+#Install Ansible to vm we will reference this vm as controller
+
+yum install ansible -y 
+#Check Ansible version
+
+ansible --version
+#Create a new user for ansible administration & grant admin access to user (Master and Slave)
+
+useradd ansadmin
+passwd ansadmin
+# below command addes ansadmin to sudoers file. But strongly recommended to use "visudo" command if you are aware vi or nano editor. 
+echo "ansadmin ALL=(ALL) ALL" >> /etc/sudoers
+#Using keybased authentication is advised. If you are still at learning stage use password based authentication (Master & Slave)
+
+# sed command replaces "PasswordAuthentication no to yes" without editing file
+nano /etc/ssh/sshd_config
+# add below line
+#PasswordAuthentication yes  and comment this one PasswordAuthentication no
+# Then restart sshd service with below cmd
+
+service sshd restart
+ 
+#Login as a ansadmin user on master and generate ssh key (ansible controller)
+
+ssh-keygen -t rsa # go with all default, keep on hitting enter until it reaches to key generetion last step
+#Copy keys onto all ansible client nodes (Master)
+
+ssh-copy-id <target-server> # here target-server is the one where we will do all installation with ansible.
+Update target servers ip on /etc/ansible/hosts file (controller) 
+# above same we can do in a txt file in local directory with follwing info target ansible_host=<targer-server ip> ansible_ssh_pass=Passw0rd
+
+echo "<target server IP>" > /etc/ansible/hosts #this command needs you to be root
+#Run ansible command as ansadmin user it should be successful (Master)
+ansible all -m ping
+ansible target -m ping -i inventory # in case we have created local inventory
