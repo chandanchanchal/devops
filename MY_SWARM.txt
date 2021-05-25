@@ -55,7 +55,7 @@ docker node ls... now we can see two
 docker node ls on node two it will notwork as its worker
 docker node update --role manager node2 at manager machine
 docker node ls... we can see there are two nodes
-docker service create --replicas 3 alpine 8.8.8.8
+docker service create --replicas 3 --name helloworld alpine:3.6 ping docker.com
 docker service ls
 docker node ps
 docker node ps node2
