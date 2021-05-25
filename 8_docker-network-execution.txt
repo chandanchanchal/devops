@@ -15,5 +15,5 @@ docker network connect bridge cbd1 # connect cbd1 to default bridge and you will
 # now ping from dbd1 to cbd1 and vise versa it will not get pingeed eighter way.
 docker network disconnect bridge cbd1 # to stop ping
 
-docker run -d --name hc1 --net host busybox seeep 10000 # will create hc1 to host interface 
+docker run -d --name hc1 --net host busybox sleep 10000 # will create hc1 to host interface 
 docker exec -it hc1 /bin/ash # connect to container. and run ifconfig you will find all host network interfaces are here
