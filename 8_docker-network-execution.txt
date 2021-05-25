@@ -2,7 +2,7 @@ docker run -d --name c1 --net none busybox sleep 10000 # will keep container run
 docker exec -it c1 /bin/ash # will attach a shell to container
 #now check for network interfaces with ifconfig command ,you will find only loopback ip
 #lets go with below command for checking out cidr of default bridge interface
-docker netwrok inspect bridge
+docker network inspect bridge
 # now we will create one custom bridge interface named as my_bridge-network
 docker network create --driver bridge my_bridge-network
 docker run -d --name dbd1 busybox sleep 10000 # this will create dbd1 container to default bridge.
