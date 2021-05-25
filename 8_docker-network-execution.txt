@@ -9,7 +9,7 @@ docker run -d --name dbd1 busybox sleep 10000 # this will create dbd1 container 
 docker exec -it dbd1 /bin/ash # connect to container. # connect container via first terminal
 docker run -d --net my_bridge-network --name cbd1 busybox sleep 10000 # this will create cbd1 container to custom bridge
 docker exec -it cbd1 /bin/ash # connect to container. # connect container via second terminal
-# now ping dbd1 from dbd1 and vi versa and you will find neighter of them piniging to each other.
+# now ping dbd1 from cbd1 and vi versa and you will find neighter of them piniging to each other.
 docker network connect bridge cbd1 # connect cbd1 to default bridge and you will find ping got started. connect command we
 # have to run for second container too if we want to ping from second to first one.
 # now ping from dbd1 to cbd1 and vise versa it will not get pingeed eighter way.
