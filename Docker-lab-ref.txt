@@ -3,7 +3,7 @@ service docker start
 service docker status
 chkconfig docker on
 
-docker run hello-world
+docker run --name c1 hello-world
 docker run busybox:1.24 echo "hello world"
 docker run hello-world  echo "hello world"
 
