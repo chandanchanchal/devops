@@ -27,7 +27,7 @@ echo "<html><body bgcolor="red"><h1> Hello World from test2</h1></body><html>" >
 
 ###############################################################################################
 
-!/bin/bash
+#!/bin/bash
 sudo yum install httpd -y
 sudo yum update -y
 sudo service httpd start
