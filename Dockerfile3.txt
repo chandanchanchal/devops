@@ -8,6 +8,9 @@ COPY index.html /var/www/html/
 
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
+
+# for docker build run this command <docker build -t ckccustomweb:1.0 .>
+
 # Below is the command to create container out of this image
 # docker run -p 80:80 then imagerepo name along with tag-- make sure your host machine has port 80 open for inbound traffic.
 
