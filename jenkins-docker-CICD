@@ -43,3 +43,6 @@ node{
     
     
 }
+
+
+#sudo usermod -aG docker $USER
