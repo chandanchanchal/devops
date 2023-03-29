@@ -3,6 +3,7 @@ sudo yum update -y
 sudo yum install httpd -y
 sudo service httpd start
 sudo chkconfig httpd on
+sudo su
 sudo echo "<html><body bgcolor="red"><h1> Hello World</h1></body><html>" > /var/www/html/index.html
 
 
