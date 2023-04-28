@@ -5,6 +5,16 @@ sudo service httpd start
 sudo chkconfig httpd on
 sudo su
 sudo echo "<html><body bgcolor="red"><h1> Hello World</h1></body><html>" > /var/www/html/index.html
+##################---Server-1----------###################
+sudo su
+mkdir /var/www/html/image
+sudo echo "<html><body bgcolor="yellow"><h1> Hello World From Image</h1></body><html>" > /var/www/html/image/index.html
+
+##################---Server-2----------###################
+sudo su
+mkdir /var/www/html/food
+sudo echo "<html><body bgcolor="yellow"><h1> Hello World From Food</h1></body><html>" > /var/www/html/food/index.html
+
 
 
 #!/bin/bash
