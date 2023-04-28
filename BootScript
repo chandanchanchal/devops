@@ -34,3 +34,13 @@ sudo yum update -y
 sudo service httpd start
 sudo chkconfig httpd on
 sudo echo "<html><body bgcolor="red"><h1> Hello World</h1></body></html>" > /var/www/html/index.html
+
+
+##################################################----Volume-Mount-----#########################
+lsblk
+file -s /dev/xvdf
+sudo mkfs -t ext4 /dev/xvdf
+sudo mkdir /newvolume
+mount /dev/xvdf /newvolume/
+cd /newvolume
+df -h
