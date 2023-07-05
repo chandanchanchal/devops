@@ -1,2 +1,3 @@
 iex(iwr https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1).Content
 netstat -anp|findstr 5986
+https://www.linuxhelp.com/how-to-configure-windows-client-setup-for-ansible
