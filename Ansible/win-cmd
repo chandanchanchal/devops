@@ -1,1 +1,2 @@
 iex(iwr https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1).Content
+netstat -anp|findstr 5986
