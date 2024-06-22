@@ -13,7 +13,7 @@ git config --global core.editor "notepad++.exe -multiInst -nosession"
 git config --global --list
 git config --global -e
 https://hipsum.co/
-http://initializr.com
+https://initializr.v1v2.io/
 unzip ~/Downloads/initializr-verekia-4.0.zip
 then remane this folder to web-project and say git init
 git add .--------just toadd all file
