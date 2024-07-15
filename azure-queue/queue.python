@@ -8,3 +8,18 @@ try:
 except Exception as ex:
     print('Exception:')
     print(ex)
+
+
+
+
+print("Azure Queue storage - Python quickstart sample")
+
+    # Create a unique name for the queue
+    queue_name = "quickstartqueues-" + str(uuid.uuid4())
+
+    account_url = "https://<storageaccountname>.queue.core.windows.net"
+    default_credential = DefaultAzureCredential()
+
+    # Create the QueueClient object
+    # We'll use this object to create and interact with the queue
+    queue_client = QueueClient(account_url, queue_name=queue_name ,credential=default_credential)
