@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM dokken/centos-7
 
 MAINTAINER Chandan Chanchal
 
