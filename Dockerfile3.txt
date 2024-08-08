@@ -1,12 +1,12 @@
-FROM dokken/centos-7
-
+FROM ubuntu
 MAINTAINER Chandan Chanchal
-
-RUN yum -y install httpd
-
+RUN apt update -y
+RUN apt install -y apache2
+RUN apt install -y apache2-utils
 COPY index.html /var/www/html/
-
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+RUN apt clean
+#EXPOSE 80
+CMD ["apache2ctl", "-D", "FOREGROUND"]
 
 
 # for docker build run this command <docker build -t ckccustomweb:1.0 .>
