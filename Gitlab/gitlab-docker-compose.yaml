@@ -5,7 +5,7 @@ services:
     image: 'gitlab/gitlab-ce:latest'
     container_name: gitlab-server
     environment:
-      GITLAB_ROOT_EMAIL: "chandanabbupur@gmai..com"
+      GITLAB_ROOT_EMAIL: "chandanabbupur@gmail.com"
       GITLAB_ROOT_PASSWORD: "Abcd@0123456789"
       GITLAB_OMNIBUS_CONFIG: |
         puma['worker_processes'] = 0 # disable cluster mode to avoid more memory usage
