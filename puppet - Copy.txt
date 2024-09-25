@@ -147,7 +147,7 @@ service { "ntpd":
 cd /etc/puppetlabs/code/environments/production/manifests
 # at above path we have to create site.pp
 
-# before writing anthing to site.pp run below command to agent jsut to ensure agent is connect to master
+# before writing anthing to site.pp run below command to agent just to ensure agent is connect to master
 puppet agent -tv --noop
 puppet agent -tv
 
