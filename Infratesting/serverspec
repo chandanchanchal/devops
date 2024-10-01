@@ -1,3 +1,5 @@
 gem install serverspec
 serverspec-init
 rake spec
+gem install inspec
+inspec exec controls/nginx.rb
