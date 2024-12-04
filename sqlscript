@@ -6,3 +6,17 @@ CREATE TABLE Persons (
     City varchar(255)
 );
 
+INSERT INTO Persons (PersonID, LastName, FirstName, Address, City) 
+VALUES
+(1, 'Smith', 'John', '123 Elm St', 'New York'),
+(2, 'Johnson', 'Sarah', '456 Oak St', 'Los Angeles'),
+(3, 'Williams', 'James', '789 Pine St', 'Chicago'),
+(4, 'Brown', 'Linda', '101 Maple St', 'Houston'),
+(5, 'Jones', 'Michael', '202 Birch St', 'Phoenix'),
+(6, 'Miller', 'Emily', '303 Cedar St', 'Philadelphia'),
+(7, 'Davis', 'David', '404 Redwood St', 'San Antonio'),
+(8, 'García', 'Maria', '505 Willow St', 'San Diego'),
+(9, 'Rodriguez', 'Carlos', '606 Ash St', 'Dallas'),
+(10, 'Martinez', 'Patricia', '707 Pineapple St', 'Austin');
+
+
