@@ -18,3 +18,37 @@ def lambda_handler(event, context):
     print("value3 = "+ event['key3'])
     return event['key1']
     #raise Exception('something went wrong')
+#################################################################################################################################################
+import json
+import logging
+
+# Configure logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+def lambda_handler(event, context):
+    """
+    Lambda function to log the name of the file uploaded to an S3 bucket.
+
+    :param event: S3 event triggering the Lambda function
+    :param context: Lambda execution context
+    """
+    try:
+        # Log the entire event for debugging purposes
+        logger.info("Received event: %s", json.dumps(event, indent=2))
+
+        # Extract bucket name and object key from the event
+        bucket_name = event['Records'][0]['s3']['bucket']['name']
+        object_key = event['Records'][0]['s3']['object']['key']
+
+        # Log the bucket name and object key (file name)
+        logger.info(f"File '{object_key}' uploaded to bucket '{bucket_name}'")
+        
+    except KeyError as e:
+        logger.error(f"KeyError encountered: {e}")
+        raise e
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps('File name logged successfully')
+    }
