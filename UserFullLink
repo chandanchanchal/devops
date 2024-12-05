@@ -8,3 +8,13 @@ aws lambda invoke --function-name demo-lambda --cli-binary-format raw-in-base64-
 
 # WINDOWS CMD
 aws lambda invoke --function-name demo-lambda --cli-binary-format raw-in-base64-out --payload "{""key1"":""value1"",""key2"":""value2"",""key3"":""value3""}" --invocation-type Event --region eu-west-1 response.json
+
+
+import json
+ 
+def lambda_handler(event, context):
+    print("value1 = "+ event['key1'])
+    print("value2 = "+ event['key2'])
+    print("value3 = "+ event['key3'])
+    return event['key1']
+    #raise Exception('something went wrong')
