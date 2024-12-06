@@ -40,7 +40,7 @@ aws iam create-role --role-name EC2S3FullAccessRole --assume-role-policy-documen
 aws iam put-role-policy --role-name EC2S3FullAccessRole --policy-name S3FullAccessPolicy --policy-document file://s3-full-access-policy.json
 
 
-
+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
 
 
 
