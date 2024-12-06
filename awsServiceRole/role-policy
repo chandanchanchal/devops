@@ -39,7 +39,7 @@ nano ec2-trust-policy.json
 aws iam create-role --role-name EC2S3FullAccessRole --assume-role-policy-document file://ec2-trust-policy.json
 aws iam put-role-policy --role-name EC2S3FullAccessRole --policy-name S3FullAccessPolicy --policy-document file://s3-full-access-policy.json
 
-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
+
 
 
 
