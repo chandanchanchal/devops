@@ -52,3 +52,58 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps('File name logged successfully')
     }
+##############################################-------------------Below is for sns processing lambda code-----------#########################
+
+import json
+import logging
+
+# Set up logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+def lambda_handler(event, context):
+    """
+    AWS Lambda function to process SNS messages.
+
+    Args:
+        event: The event dict passed by AWS Lambda, containing the SNS message.
+        context: The runtime information of the Lambda function.
+
+    Returns:
+        dict: Response with status code and message.
+    """
+    try:
+        # Log the incoming event
+        logger.info("Event: %s", json.dumps(event))
+
+        # Loop through each record in the event
+        for record in event['Records']:
+            # Extract the SNS message body
+            sns_message = record['Sns']['Message']
+            
+            logger.info("Processing message: %s", sns_message)
+
+            # Process the SNS message
+            process_message(sns_message)
+
+        return {
+            'statusCode': 200,
+            'body': json.dumps({'message': 'SNS message processed successfully.'})
+        }
+
+    except Exception as e:
+        logger.error("Error processing SNS message: %s", str(e))
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': str(e)})
+        }
+
+def process_message(message):
+    """
+    Function to process the SNS message body.
+
+    Args:
+        message (str): The message body from SNS.
+    """
+    # Example processing logic (modify as needed for your use case)
+    logger.info("Processed message content: %s", message)
