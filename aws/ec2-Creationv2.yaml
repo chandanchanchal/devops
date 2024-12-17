@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation Template to Launch an EC2 Instance using Mappings, Parameters, and Fn::FindInMap
+
+Parameters:
+  Environment:
+    Description: Environment to deploy the EC2 instance
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - staging
+      - production
+    ConstraintDescription: Must be dev, staging, or production.
+
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t3.micro
+    ConstraintDescription: Must be a valid EC2 instance type.
+
+Mappings:
+  RegionMap:
+    us-east-1:
+      AMI: ami-0c55b159cbfafe1f0
+    us-west-2:
+      AMI: ami-0d1cd67c26f5fca19
+    eu-central-1:
+      AMI: ami-0a887e401f7654935
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: 
+        Fn::FindInMap:
+          - RegionMap
+          - us-east-1  # Replace with dynamic region logic if needed
+          - AMI
+      KeyName: my-key-pair           # Replace with your Key Pair name
+      SecurityGroups:
+        - default                   # Replace with your Security Group name
+      Tags:
+        - Key: Name
+          Value: !Sub "EC2-${Environment}-Instance"
+
+Outputs:
+  InstanceId:
+    Description: The ID of the created EC2 instance
+    Value: !Ref MyEC2Instance
+  AMIUsed:
+    Description: The AMI ID used for this EC2 instance
+    Value: 
+      Fn::FindInMap:
+        - RegionMap
+        - us-east-1
+        - AMI
