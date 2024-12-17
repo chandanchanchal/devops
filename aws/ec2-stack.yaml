@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Child Stack - Launches an EC2 Instance and references Security Group ID from the parent stack.
+
+Parameters:
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t2.medium
+    ConstraintDescription: Must be a valid EC2 instance type.
+
+Mappings:
+  InstanceTypeToKey:
+    t2.micro:
+      Key: t2micro
+    t2.small:
+      Key: t2small
+    t2.medium:
+      Key: t2medium
+
+  RegionMap:
+    us-east-1:
+      t2micro: ami-01816d07b1128cd2d
+      t2small: ami-01816d07b1128cd2d
+      t2medium: ami-0c55b159cbfafe1f0
+    us-west-1:
+      t2micro: ami-0bdb828fd58c52235
+      t2small: ami-0bdb828fd58c52235
+      t2medium: ami-0bdb828fd58c52235
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: !FindInMap
+        - RegionMap
+        - !Ref AWS::Region
+        - !FindInMap
+          - InstanceTypeToKey
+          - !Ref InstanceType
+          - Key
+      SecurityGroupIds:
+        - !ImportValue MyNetworkStack-SecurityGroupId
+      KeyName: my-key-pair  # Replace with your valid Key Pair
+      Tags:
+        - Key: Name
+          Value: CrossStack-EC2Instance
+
+Outputs:
+  EC2InstanceId:
+    Description: The ID of the created EC2 instance
+    Value: !Ref MyEC2Instance
