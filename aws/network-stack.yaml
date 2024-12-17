@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Parent Stack - Creates a Security Group and exports its ID.
+
+Resources:
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for cross-stack reference
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0    # Allows SSH (update for better security)
+
+Outputs:
+  SecurityGroupId:
+    Description: ID of the Security Group
+    Value: !Ref MySecurityGroup
+    Export:
+      Name: MyNetworkStack-SecurityGroupId
