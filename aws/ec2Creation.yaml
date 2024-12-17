@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation Template to Launch an EC2 Instance in us-east-1 with Parameterized Instance Type
+
+Parameters:
+  InstanceType:
+    Description: Type of EC2 instance (e.g., t2.micro, t3.medium)
+    Type: String
+    Default: t2.micro
+    AllowedValues: 
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t3.micro
+      - t3.small
+      - t3.medium
+    ConstraintDescription: Must be a valid EC2 instance type.
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: ami-0c55b159cbfafe1f0   # Amazon Linux 2 AMI ID (for us-east-1 region)
+      KeyName: my-key-pair            # Replace with your Key Pair name
+      SecurityGroups:
+        - default                    # Replace with your Security Group name
+      Tags:
+        - Key: Name
+          Value: MyEC2Instance
+Outputs:
+  InstanceId:
+    Description: The Instance ID of the created EC2 instance
+    Value: !Ref MyEC2Instance
