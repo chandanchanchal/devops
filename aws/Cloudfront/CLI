@@ -1,0 +1,1 @@
+aws s3api create-bucket --bucket cloudfront-cache-demo --region us-east-1
