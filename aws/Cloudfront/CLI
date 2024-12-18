@@ -15,3 +15,7 @@ aws s3api put-bucket-policy --bucket chandancloudfront-cache-demo --policy '{
 
 echo "<html><body><h1>Version 1</h1></body></html>" > index.html
 aws s3 cp index.html s3://chandancloudfront-cache-demo/
+
+
+aws cloudfront create-distribution --origin-domain-name cloudfront-cache-demo.s3.amazonaws.com --default-root-object index.html
+
