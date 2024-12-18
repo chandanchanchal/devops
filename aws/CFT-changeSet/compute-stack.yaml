@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  PublicSubnetId:
+    Type: String
+    Description: The ID of the public subnet where the EC2 instance will be deployed
+
+Resources:
+  MyEC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      InstanceType: "t2.micro"
+      ImageId: "ami-0c02fb55956c7d316" # Amazon Linux 2
+      SubnetId: !Ref PublicSubnetId
