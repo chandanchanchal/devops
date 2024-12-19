@@ -19,3 +19,4 @@ aws s3 cp index.html s3://chandancloudfront-cache-demo/
 
 aws cloudfront create-distribution --origin-domain-name cloudfront-cache-demo.s3.amazonaws.com --default-root-object index.html
 
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/index.html"
