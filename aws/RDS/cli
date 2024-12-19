@@ -10,3 +10,20 @@ aws rds create-db-instance \
     --vpc-security-group-ids sg-021148299e8b65de5 \
     --availability-zone us-east-1a
 
+aws rds describe-db-instances --db-instance-identifier mydbinstance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
