@@ -26,6 +26,66 @@ pip install pymysql
 
 
 
+import pymysql
+
+# Database connection parameters
+endpoint = "mydbinstance.xxxxxx.us-east-1.rds.amazonaws.com"  # Replace with your endpoint
+port = 3306
+username = "admin"
+password = "admin123"
+database = "testdb"
+
+# Connect to the RDS instance
+try:
+    connection = pymysql.connect(
+        host=endpoint,
+        user=username,
+        password=password,
+        database=database,
+        port=port
+    )
+    print("Connection to RDS successful!")
+    
+    # Create a cursor object
+    cursor = connection.cursor()
+
+    # Create a table
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100),
+        email VARCHAR(100) UNIQUE
+    );
+    """
+    cursor.execute(create_table_query)
+    print("Table 'users' created successfully.")
+
+    # Insert data
+    insert_query = "INSERT INTO users (name, email) VALUES (%s, %s)"
+    cursor.executemany(insert_query, [
+        ("Alice", "alice@example.com"),
+        ("Bob", "bob@example.com"),
+    ])
+    connection.commit()
+    print("Data inserted successfully.")
+
+    # Retrieve data
+    select_query = "SELECT * FROM users;"
+    cursor.execute(select_query)
+    for row in cursor.fetchall():
+        print(row)
+
+except pymysql.MySQLError as e:
+    print(f"Error connecting to RDS: {e}")
+finally:
+    if 'connection' in locals() and connection:
+        connection.close()
+        print("Connection closed.")
+
+
+
+
+
 
 
 
