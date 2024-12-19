@@ -25,7 +25,6 @@ pip install pymysql
 
 
 
-
 import pymysql
 
 # Database connection parameters
@@ -37,17 +36,27 @@ database = "testdb"
 
 # Connect to the RDS instance
 try:
+    # Initial connection without specifying a database
     connection = pymysql.connect(
         host=endpoint,
         user=username,
         password=password,
-        database=database,
         port=port
     )
     print("Connection to RDS successful!")
-    
+
     # Create a cursor object
     cursor = connection.cursor()
+
+    # Create the database if it doesn't exist
+    create_db_query = f"CREATE DATABASE IF NOT EXISTS {database};"
+    cursor.execute(create_db_query)
+    print(f"Database '{database}' created or already exists.")
+
+    # Switch to the created database
+    use_db_query = f"USE {database};"
+    cursor.execute(use_db_query)
+    print(f"Using database '{database}'.")
 
     # Create a table
     create_table_query = """
@@ -81,6 +90,8 @@ finally:
     if 'connection' in locals() and connection:
         connection.close()
         print("Connection closed.")
+
+
 
 
 
