@@ -1,10 +1,12 @@
 aws rds create-db-instance \
     --db-instance-identifier mydbinstance \
-    --db-instance-class db.t2.micro \
+    --db-instance-class db.t3.micro \
     --engine mysql \
+    --engine-version 8.0.39 \
     --allocated-storage 20 \
     --master-username admin \
     --master-user-password admin123 \
     --backup-retention-period 7 \
-    --vpc-security-group-ids sg-xxxxxxxx \
+    --vpc-security-group-ids sg-021148299e8b65de5 \
     --availability-zone us-east-1a
+
