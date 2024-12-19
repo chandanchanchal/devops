@@ -1,0 +1,10 @@
+aws rds create-db-instance \
+    --db-instance-identifier mydbinstance \
+    --db-instance-class db.t2.micro \
+    --engine mysql \
+    --allocated-storage 20 \
+    --master-username admin \
+    --master-user-password admin123 \
+    --backup-retention-period 7 \
+    --vpc-security-group-ids sg-xxxxxxxx \
+    --availability-zone us-east-1a
