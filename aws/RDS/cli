@@ -21,6 +21,7 @@ aws ec2 authorize-security-group-ingress \
 
 
 
+pip install pymysql
 
 
 
