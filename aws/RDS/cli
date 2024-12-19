@@ -93,6 +93,23 @@ finally:
 
 
 
+{
+  "ProductID": "P001",
+  "ProductName": "Laptop",
+  "Price": 1000,
+  "Category": "Electronics"
+}
+
+{
+  "ProductID": "P002",
+  "ProductName": "Smartphone",
+  "Price": 500,
+  "Category": "Electronics"
+}
+
+
+
+
 
 
 
