@@ -1,2 +1,7 @@
 sudo yum update -y
 sudo amazon-linux-extras install epel -y
+
+sudo wget https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm
+sudo rpm -ivh mysql80-community-release-el7-5.noarch.rpm
+
+
