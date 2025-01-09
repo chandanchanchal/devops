@@ -1,0 +1,55 @@
+Create Your Lambda Function Directory
+Create a new directory for your Lambda function and navigate into it.
+
+
+mkdir my-lambda-function
+cd my-lambda-function
+2. Initialize a Node.js Project
+Run the following command to create a package.json file:
+
+
+npm init -y
+3. Install Your Custom Package Locally
+If your custom Node.js package is hosted in a private repository, locally available, or elsewhere, you can install it.
+
+Option 1: From a Public or Private NPM Repository
+
+npm install <your-package-name>
+Option 2: From a Local File System
+If your package is on your machine, use a relative or absolute path:
+
+
+
+
+
+
+4. Create Your Lambda Function
+Create an index.js file (or a similar entry point) for your Lambda function. Example:
+
+
+const myCustomPackage = require('your-package-name');
+
+exports.handler = async (event) => {
+    const result = myCustomPackage.someFunction();
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ message: 'Success', result }),
+    };
+};
+5. Package the Lambda Deployment
+Package your Lambda function code along with the node_modules directory.
+
+Using ZIP (Command Line)
+Install the dependencies into your function directory:
+
+npm install
+Zip the contents of the directory:
+
+zip -r my-lambda-function.zip .
+Ensure the node_modules, index.js, and other necessary files are included in the zip file.
+
+6. Upload the Deployment Package
+Go to the AWS Lambda Console.
+Create a new function or edit an existing one.
+Under the Code section, choose Upload from > .zip file.
+Upload the my-lambda-function.zip.
