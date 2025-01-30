@@ -1,0 +1,82 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Git Branch to Build')
+        choice(name: 'BUILD_ENV', choices: ['dev', 'qa', 'prod'], description: 'Select the Environment')
+        booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run Unit Tests')
+    }
+
+    environment {
+        BUILD_DIR = 'C:\\Jenkins\\workspace'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        echo "Checking out code from branch: ${params.BRANCH_NAME}"
+                        checkout([$class: 'GitSCM', branches: [[name: "*/${params.BRANCH_NAME}"]],
+                                  userRemoteConfigs: [[url: 'https://github.com/your-repo.git']]])
+                        echo "Checkout completed!"
+                    }
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        echo "Building project for ${params.BUILD_ENV} environment"
+                        bat 'gradle build'  // Modify this based on your build tool
+                        echo "Build completed!"
+                    }
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            when {
+                expression { params.RUN_TESTS }
+            }
+            steps {
+                script {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                        echo "Running tests..."
+                        bat 'gradle test'  // Modify based on your test setup
+                        echo "Testing completed!"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        echo "Deploying application..."
+                        bat "deploy_script.bat ${params.BUILD_ENV}"  // Modify as per your deployment
+                        echo "Deployment completed!"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline execution completed."
+        }
+        success {
+            echo "Build was successful!"
+        }
+        failure {
+            echo "Pipeline encountered some failures but continued."
+        }
+        unstable {
+            echo "Pipeline finished with some warnings!"
+        }
+    }
+}
