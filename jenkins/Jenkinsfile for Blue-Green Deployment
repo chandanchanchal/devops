@@ -1,0 +1,113 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'DEPLOY_ENV', defaultValue: 'green', description: 'Target environment for deployment (blue/green)')
+    }
+
+    environment {
+        APP_NAME = "my-app"
+        BLUE_ENV = "/var/www/blue"
+        GREEN_ENV = "/var/www/green"
+        CURRENT_ENV_FILE = "/var/www/current_env"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    echo "Checking out source code..."
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    echo "Building application..."
+                    bat 'gradle build'  // Use appropriate build command
+                }
+            }
+        }
+
+        stage('Deploy to Green') {
+            steps {
+                script {
+                    if (params.DEPLOY_ENV == "green") {
+                        echo "Deploying to Green environment..."
+                        bat "xcopy /E /I build\\output ${GREEN_ENV}"
+                    } else {
+                        echo "Deploying to Blue environment..."
+                        bat "xcopy /E /I build\\output ${BLUE_ENV}"
+                    }
+                }
+            }
+        }
+
+        stage('Test Green Deployment') {
+            steps {
+                script {
+                    if (params.DEPLOY_ENV == "green") {
+                        echo "Running tests on Green..."
+                        bat "test_script.bat ${GREEN_ENV}"
+                    } else {
+                        echo "Skipping tests as this is a rollback."
+                    }
+                }
+            }
+        }
+
+        stage('Switch Traffic') {
+            steps {
+                script {
+                    if (params.DEPLOY_ENV == "green") {
+                        echo "Switching traffic to Green..."
+                        bat "echo GREEN > ${CURRENT_ENV_FILE}"
+                    } else {
+                        echo "Switching traffic to Blue..."
+                        bat "echo BLUE > ${CURRENT_ENV_FILE}"
+                    }
+                }
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                script {
+                    echo "Verifying deployment..."
+                    bat "curl http://localhost/health"
+                }
+            }
+        }
+
+        stage('Rollback (if needed)') {
+            steps {
+                script {
+                    def deployment_successful = true // Replace with actual verification logic
+
+                    if (!deployment_successful) {
+                        echo "Deployment failed! Rolling back..."
+                        if (params.DEPLOY_ENV == "green") {
+                            bat "echo BLUE > ${CURRENT_ENV_FILE}"
+                        } else {
+                            bat "echo GREEN > ${CURRENT_ENV_FILE}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline execution completed."
+        }
+        success {
+            echo "Deployment successful!"
+        }
+        failure {
+            echo "Deployment failed. Check logs."
+        }
+    }
+}
