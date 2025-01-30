@@ -1,0 +1,109 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'CANARY_PERCENT', choices: ['10', '25', '50', '100'], description: 'Traffic percentage for Canary')
+    }
+
+    environment {
+        APP_NAME = "my-app"
+        STABLE_ENV = "/var/www/stable"
+        CANARY_ENV = "/var/www/canary"
+        TRAFFIC_FILE = "/var/www/traffic_split"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    echo "Checking out source code..."
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    echo "Building application..."
+                    bat 'gradle build'  // Use appropriate build command
+                }
+            }
+        }
+
+        stage('Deploy to Canary') {
+            steps {
+                script {
+                    echo "Deploying to Canary..."
+                    bat "xcopy /E /I build\\output ${CANARY_ENV}"
+                }
+            }
+        }
+
+        stage('Run Canary Tests') {
+            steps {
+                script {
+                    echo "Running Canary tests..."
+                    bat "test_script.bat ${CANARY_ENV}"
+                }
+            }
+        }
+
+        stage('Gradually Increase Traffic') {
+            steps {
+                script {
+                    def canary_percent = params.CANARY_PERCENT
+                    echo "Increasing Canary traffic to ${canary_percent}%"
+                    bat "echo ${canary_percent} > ${TRAFFIC_FILE}"
+                }
+            }
+        }
+
+        stage('Monitor Canary') {
+            steps {
+                script {
+                    echo "Monitoring Canary deployment..."
+                    bat "curl http://localhost/health"
+                }
+            }
+        }
+
+        stage('Promote to Full Deployment') {
+            steps {
+                script {
+                    if (params.CANARY_PERCENT == "100") {
+                        echo "Canary is successful, promoting to full deployment..."
+                        bat "xcopy /E /I ${CANARY_ENV} ${STABLE_ENV}"
+                    } else {
+                        echo "Canary is not yet at 100%, keeping partial rollout."
+                    }
+                }
+            }
+        }
+
+        stage('Rollback if Needed') {
+            steps {
+                script {
+                    def deployment_successful = true // Replace with actual verification logic
+
+                    if (!deployment_successful) {
+                        echo "Canary deployment failed! Rolling back..."
+                        bat "echo 0 > ${TRAFFIC_FILE}"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline execution completed."
+        }
+        success {
+            echo "Deployment successful!"
+        }
+        failure {
+            echo "Deployment failed. Check logs."
+        }
+    }
+}
