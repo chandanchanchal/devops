@@ -1,0 +1,90 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Git Branch to Build')
+        choice(name: 'BUILD_ENV', choices: ['dev', 'qa', 'prod'], description: 'Select the Environment')
+        booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run Unit Tests')
+    }
+
+    environment {
+        BUILD_DIR = 'C:\\Jenkins\\workspace'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    try {
+                        echo "Checking out code from branch: ${params.BRANCH_NAME}"
+                        checkout([$class: 'GitSCM', branches: [[name: "*/${params.BRANCH_NAME}"]],
+                                  userRemoteConfigs: [[url: 'https://github.com/your-repo.git']]])
+                    } catch (Exception e) {
+                        echo "Error during checkout: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error("Stopping the build due to checkout failure.")
+                    }
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    try {
+                        echo "Building project for ${params.BUILD_ENV} environment"
+                        bat 'gradle build'  // Modify this based on your build tool
+                    } catch (Exception e) {
+                        echo "Build failed: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error("Stopping the build due to failure.")
+                    }
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            when {
+                expression { params.RUN_TESTS }
+            }
+            steps {
+                script {
+                    try {
+                        echo "Running tests..."
+                        bat 'gradle test'  // Modify based on your test setup
+                    } catch (Exception e) {
+                        echo "Tests failed: ${e.message}"
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    try {
+                        echo "Deploying application..."
+                        bat "deploy_script.bat ${params.BUILD_ENV}"  // Adjust based on your deployment process
+                    } catch (Exception e) {
+                        echo "Deployment failed: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error("Stopping the build due to deployment failure.")
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Build completed successfully!"
+        }
+        failure {
+            echo "Build failed. Please check logs."
+        }
+        unstable {
+            echo "Build completed with some issues."
+        }
+    }
+}
