@@ -1,0 +1,7 @@
+@RequestMapping("/courses")
+	public List<Course> retrieveAllCourses(){
+		return Arrays.asList(
+		    new Course(1, "Learn AWS","Mavetsoft"),
+		    new Course(2, "Learn Devops", "Mavetsoft")
+		    );
+	}
