@@ -129,3 +129,13 @@ DELETE	/courses/{id}	Delete a course by ID
 
 
 
+ public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
+
+
