@@ -137,5 +137,7 @@ DELETE	/courses/{id}	Delete a course by ID
         this.activity = activity;
     }
 
+https://bored.api.lewagon.com/api/activity
+
 
 
