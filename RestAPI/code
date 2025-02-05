@@ -53,3 +53,70 @@ public class Course {
 
 }
 
+#############################################################################################################################################
+
+package com.test.springboot.learn_spring_springboot;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/courses")
+public class CourseController {
+
+    private List<Course> courseList = new ArrayList<>(Arrays.asList(
+        new Course(1, "Learn AWS", "Mavetsoft"),
+        new Course(2, "Learn DevOps", "Mavetsoft")
+    ));
+
+    // Retrieve all courses
+    @GetMapping
+    public List<Course> retrieveAllCourses() {
+        return courseList;
+    }
+
+    // Retrieve a single course by ID
+    @GetMapping("/{id}")
+    public Course getCourseById(@PathVariable int id) {
+        return courseList.stream()
+                .filter(course -> course.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+    }
+
+    // Add a new course
+    @PostMapping
+    public String addCourse(@RequestBody Course course) {
+        courseList.add(course);
+        return "Course added successfully!";
+    }
+
+    // Update an existing course
+    @PutMapping("/{id}")
+    public String updateCourse(@PathVariable int id, @RequestBody Course updatedCourse) {
+        Optional<Course> existingCourse = courseList.stream()
+                .filter(course -> course.getId() == id)
+                .findFirst();
+
+        if (existingCourse.isPresent()) {
+            courseList.remove(existingCourse.get());
+            courseList.add(updatedCourse);
+            return "Course updated successfully!";
+        } else {
+            return "Course not found!";
+        }
+    }
+
+    // Delete a course
+    @DeleteMapping("/{id}")
+    public String deleteCourse(@PathVariable int id) {
+        courseList.removeIf(course -> course.getId() == id);
+        return "Course deleted successfully!";
+    }
+}
+
+
