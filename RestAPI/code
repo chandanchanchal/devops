@@ -118,5 +118,14 @@ public class CourseController {
         return "Course deleted successfully!";
     }
 }
+###################################################################################################################################
+
+HTTP Method	Endpoint	Description	Example Request Body
+GET	/courses	Get all courses	-
+GET	/courses/{id}	Get a course by ID	-
+POST	/courses	Add a new course	{ "id": 3, "name": "Learn Spring", "author": "Mavetsoft" }
+PUT	/courses/{id}	Update an existing course	{ "id": 2, "name": "Updated DevOps", "author": "Mavetsoft" }
+DELETE	/courses/{id}	Delete a course by ID
+
 
 
