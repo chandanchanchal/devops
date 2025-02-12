@@ -156,3 +156,17 @@ Restart=on-abnormal
 [Install]
 WantedBy=multi-user.target
 
+
+
+[Unit]
+Description=Apache Kafka Server
+Documentation=http://kafka.apache.org/documentation.html
+Requires=zookeeper.service
+[Service]
+Type=simple
+Environment="JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64"
+ExecStart=/home/kafka_2.12-3.9.0/bin/kafka-server-start.sh /home/kafka_2.12-3.9.0/config/server.properties
+ExecStop=/home/kafka_2.12-3.9.0/bin/kafka-server-stop.sh
+[Install]
+WantedBy=multi-user.target
+
