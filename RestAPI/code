@@ -140,4 +140,5 @@ DELETE	/courses/{id}	Delete a course by ID
 https://bored.api.lewagon.com/api/activity
 
 https://medium.com/yavar/installation-of-apache-kafka-on-ubuntu-22-04-59e57f878979
+export PATH=/home/kafka_2.12-3.9.0/bin:$PATH
 
