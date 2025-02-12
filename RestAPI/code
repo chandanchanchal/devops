@@ -142,3 +142,17 @@ https://bored.api.lewagon.com/api/activity
 https://medium.com/yavar/installation-of-apache-kafka-on-ubuntu-22-04-59e57f878979
 export PATH=/home/kafka_2.12-3.9.0/bin:$PATH
 
+
+[Unit]
+Description=Apache Zookeeper server
+Documentation=http://zookeeper.apache.org
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target
+[Service]
+Type=simple
+ExecStart=/home/kafka_2.12-3.9.0/bin/zookeeper-server-start.sh /home/kafka_2.12-3.9.0/zookeeper.properties
+ExecStop=/home/kafka_2.12-3.9.0/bin/zookeeper-server-stop.sh
+Restart=on-abnormal
+[Install]
+WantedBy=multi-user.target
+
