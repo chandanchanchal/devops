@@ -6,3 +6,8 @@ docker ps
 
 # Stop containers
 docker-compose down
+
+Now, you can access:
+
+Web Server: http://localhost:8080
+MySQL: Connect using user:userpass@localhost:3306/mydatabase
