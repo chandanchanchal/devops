@@ -1,0 +1,8 @@
+# Build and start containers
+docker-compose up -d
+
+# View running containers
+docker ps
+
+# Stop containers
+docker-compose down
