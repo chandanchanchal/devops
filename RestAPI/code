@@ -214,4 +214,6 @@ WantedBy=multi-user.target
 </build>
 
 </project>
+#############################################################################################################
 
+mvn compile exec:java -Dexec.mainClass="com.kafka.consumer.KafkaConsumerExample
