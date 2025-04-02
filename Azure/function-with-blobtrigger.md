@@ -40,13 +40,8 @@
 1. Go back to the **Code + Test** section of your function.
 2. Replace the default Python code with the following:
 
-```python
-import logging
-import azure.functions as func
 
-def main(myblob: func.InputStream):
-    logging.info(f"Processing blob: Name: {myblob.name}, Size: {myblob.length} bytes")
-```
+
 
 ## This function logs the name and size of the uploaded blob.
 *************************************************--Python-Code--*****************
@@ -66,4 +61,5 @@ def main(req: func.HttpRequest, inputblob: func.InputStream) -> func.HttpRespons
     except Exception as e:
         logging.error(f"Error: {str(e)}")
         return func.HttpResponse("Error processing the file", status_code=500)
+
 
