@@ -1,0 +1,25 @@
+{
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "name": "req",
+      "methods": ["get", "post"],
+      "authLevel": "function"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "inputDocument",
+      "direction": "in",
+      "databaseName": "YourDatabase",
+      "collectionName": "YourCollection",
+      "connectionStringSetting": "CosmosDBConnection",
+      "id": "{Query.id}",
+      "partitionKey": "{Query.partitionKey}"
+    },
+    {
+      "type": "http",
+      "name": "$return",
+      "direction": "out"
+    }
+  ]
+}
