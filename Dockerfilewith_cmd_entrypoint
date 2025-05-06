@@ -1,0 +1,24 @@
+# Use a minimal base image
+FROM alpine:3.19
+
+# Add a default entrypoint
+ENTRYPOINT ["echo"]
+
+# Provide default arguments (can be overridden)
+CMD ["Hello from Docker!"]
+
+
+# Build the image
+   #docker build -t echo-demo .
+
+# Run without any arguments (uses CMD)
+     #docker run echo-demo
+# Output: Hello from Docker!
+
+# Override CMD with new argument
+      #docker run echo-demo "Hello Abhishek!"
+# Output: Hello Abhishek!
+
+# Override ENTRYPOINT completely
+      #docker run --entrypoint "date" echo-demo
+# Output: Current date and time
