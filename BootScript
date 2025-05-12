@@ -1,3 +1,13 @@
+################################################---------For Ubuntu-------------------
+sudo apt update -y
+sudo apt install apache2 -y
+sudo service apache2 start
+sudo systemctl enable apache2
+sudo su
+sudo echo "<html><body bgcolor="blue"><h1> Hello World</h1></body></html>" > /var/www/html/index.html
+
+#######################################################################################
+
 #!/bin/bash
 sudo yum update -y
 sudo yum install httpd -y
