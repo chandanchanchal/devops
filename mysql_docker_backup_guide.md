@@ -11,7 +11,21 @@ docker run -d --name mysql-db \
   -p 3306:3306 \
   mysql:5.7
 ```
-
+## ✅ Step 1-A: Connect and Insert Sample Data
+```bash
+docker exec -it mysql-db mysql -uroot -proot
+```
+## ✅ Step 1-B: Inside MySQL
+ ```bash
+CREATE DATABASE testdb;
+USE testdb;
+CREATE TABLE users (id INT, name VARCHAR(50));
+INSERT INTO users VALUES (1, 'Alice');
+```
+## ✅ Step 1-C: Exit MySQL
+```bash
+exit;
+```
 ## ✅ Step 2: Backup MySQL Database
 
 ### Backup All Databases
