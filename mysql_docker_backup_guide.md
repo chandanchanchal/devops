@@ -61,6 +61,15 @@ docker exec -i mysql-restore \
   sh -c 'exec mysql -u root -proot' \
   < all_databases_backup.sql
 ```
+### Connect to mysql-restore Container
+```bash
+docker exec -it mysql-restore sh
+
+```
+### Once Inside the Container You can run MySQL client commands like:
+```bash
+mysql -u root -proot
+```
 
 ## ✅ Optional: Named Volume Backup/Restore
 
