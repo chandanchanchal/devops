@@ -18,7 +18,7 @@ docker run -it --rm --name mem-test --memory=100m ubuntu bash
 Inside the container:
 ```sh
 apt update && apt install -y stress
-stress --vm-bytes 200 --timeout 30
+stress --vm 2 --vm-bytes 200 --timeout 60
 ```
 
 ### CPU Limits
