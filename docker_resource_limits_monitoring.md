@@ -13,12 +13,12 @@ This document covers:
 ### Memory Limits
 
 ```bash
-docker run -it --rm --name mem-test --memory=100m alpine sh
+docker run -it --rm --name mem-test --memory=100m ubuntu bash
 ```
 Inside the container:
 ```sh
-apk add --no-cache stress
-stress --vm 1 --vm-bytes 200M --vm-hang 0
+apt update && apt install -y stress
+stress --memory 100 --timeout 30
 ```
 
 ### CPU Limits
