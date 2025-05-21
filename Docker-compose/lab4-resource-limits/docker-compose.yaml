@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  stressor:
+    build: .
+    container_name: stress-ng-container
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    command: ["stress-ng", "--cpu", "2", "--timeout", "30s"]
