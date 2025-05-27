@@ -1,6 +1,10 @@
 # MySQL Docker Backup and Restore Guide
 
 This guide demonstrates how to run MySQL in Docker and safely perform backups and restores, including volume-level and logical backup methods.
+## ✅ Step 0: Remove all Containers
+  ```bash
+docker rm -f $(docker ps -aq)
+```
 
 ## ✅ Step 1: Run MySQL 5.7 Container
 
