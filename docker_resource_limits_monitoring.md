@@ -17,8 +17,8 @@ docker run -it --rm --name mem-test --memory=100m ubuntu bash
 ```
 Inside the container:
 ```sh
-apt update && apt install -y stress
-stress --vm 2 --vm-bytes 200 --timeout 60
+apt update && apt install -y stress-ng
+stress-ng --vm 2 --vm-bytes 200 --timeout 60
 ```
 
 ### CPU Limits
@@ -28,8 +28,8 @@ docker run -it --rm --name cpu-test --cpus="0.5" ubuntu bash
 ```
 Inside the container:
 ```sh
-apt update && apt install -y stress
-stress --cpu 2 --timeout 30
+apt update && apt install -y stress-ng
+stress-ng --cpu 2 --timeout 30
 ```
 
 ### Memory + Swap
