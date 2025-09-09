@@ -10,4 +10,7 @@ Flask==3.0.2
 touch app.yaml
 cloudshell edit app.yaml
 runtime: python312
+ls
+app.yaml  main.py  requirements.txt
+gcloud app deploy
 
