@@ -7,3 +7,7 @@ touch requirements.txt
 cloudshell edit requirements.txt
 # https://pypi.org/project/Flask
 Flask==3.0.2
+touch app.yaml
+cloudshell edit app.yaml
+runtime: python312
+
