@@ -3,3 +3,7 @@ mkdir ~/helloworld
 cd ~/helloworld
 touch main.py
 cloudshell edit main.py
+touch requirements.txt
+cloudshell edit requirements.txt
+# https://pypi.org/project/Flask
+Flask==3.0.2
