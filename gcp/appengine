@@ -2,3 +2,4 @@ gcloud auth list
 mkdir ~/helloworld
 cd ~/helloworld
 touch main.py
+cloudshell edit main.py
