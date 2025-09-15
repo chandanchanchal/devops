@@ -1,0 +1,5 @@
+gcloud services enable \
+  sourcerepo.googleapis.com \
+  cloudbuild.googleapis.com \
+  artifactregistry.googleapis.com \
+  run.googleapis.com
