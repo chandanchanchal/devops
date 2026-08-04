@@ -1,0 +1,68 @@
+#The -v option in docker run is used to mount volumes into containers, allowing data to persist outside the container's lifecycle.
+docker run -v <volume-name or host-path>:<container-path> image
+## Types of Volume Mounts
+#Named Volumes (Managed by Docker)
+  docker volume create mydata
+  docker run -v mydata:/app/data myapp
+  #Stored under /var/lib/docker/volumes/
+  #Easy to back up, restore, and share between containers
+
+#Bind Mounts (Host directory mapped to container):
+ docker run -v /host/path:/container/path myapp
+ #Direct access to the host filesystem
+ #Useful for development (e.g., editing code on host, seeing changes in container)
+
+#Example: MySQL with a Named Volume
+docker run -d --name mysql-db \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -v mysql_data:/var/lib/mysql \
+  mysql:5.7
+
+#mysql_data is the named volume.
+#/var/lib/mysql is where MySQL stores its data.
+#Data persists even if the container is removed.
+
+#Why Use Volumes?
+Persistence: Data survives container deletion or crashes.
+Separation: Keeps container image and data separate.
+Sharing: Multiple containers can share data.
+Portability: Named volumes are easier to move between environments.
+
+ #Step-by-Step: Delete & Recreate MySQL Container to Test Persistence
+Step 1: Run the MySQL Container with a Named Volume
+docker run -d --name mysql-db \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -v mysql_data:/var/lib/mysql \
+  -p 3306:3306 \
+  mysql:5.7
+
+Step 2: Connect and Insert Sample Data
+docker exec -it mysql-db mysql -uroot -proot
+
+#Inside MySQL:
+CREATE DATABASE testdb;
+USE testdb;
+CREATE TABLE users (id INT, name VARCHAR(50));
+INSERT INTO users VALUES (1, 'Alice');
+
+#Exit MySQL:
+exit;
+
+Step 3: Delete the MySQL Container
+
+docker rm -f mysql-db
+
+# This removes the container but not the named volume mysql_data.
+Step 4: Recreate a New Container Using the Same Volume
+docker run -d --name mysql-db \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -v mysql_data:/var/lib/mysql \
+  -p 3306:3306 \
+  mysql:5.7
+
+Step 5: Verify Data is Still Present
+docker exec -it mysql-db mysql -uroot -proot -e "SELECT * FROM testdb.users;"
+
+# Why This Works:
+  Named volume mysql_data is not tied to a container lifecycle.
+  Reattaching it to a new container brings the data back.
