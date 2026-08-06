@@ -15,3 +15,9 @@ FROM scratch
 COPY --from=builder /app/app /
 EXPOSE 8080
 CMD ["/app"]
+
+
+FROM nginx:alpine
+ARG COLOR=blue
+ARG VERSION=v1
+RUN echo "<html><body style='background-color:${COLOR}; text-align:center; font-family:sans-serif;'><h1>Version: ${VERSION}</h1></body></html>" > /usr/share/nginx/html/index.html
